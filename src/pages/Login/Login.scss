@@ -1,0 +1,111 @@
+
+.auth-backdrop {
+  flex-grow: 1;
+  background: var(--white-grey);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-card {
+  width: 527px;
+  // border-image:
+  // background: linear-gradient(to bottom, #EDEDED 20%, rgba(237, 237, 237, 0) 100%);
+  background: linear-gradient(to bottom, rgb(237, 237, 237) 20%, #ffffff 100%);
+  border-radius: 40px;
+  border: 6px solid var(--white);
+  padding: 1px;
+}
+
+.auth-card__inner {
+  padding: 48px 58px;
+  border-radius: 34px;
+  background-color: var(--white);
+  background: linear-gradient(to bottom, #f8f8f8 0%, #ffffff 50%);
+}
+
+.auth-card__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.auth-circle {
+  border-radius: 28px;
+  box-sizing: border-box;
+
+  width: 56px;
+  height: 56px;
+
+  padding: 1px;
+
+  border: 1px solid var(--white);
+  background: linear-gradient(to bottom, #eeeeee 0%, #ffffff 70%);
+}
+
+.auth-circle__inner {
+  background: linear-gradient(to bottom, #f1f1f1 0%, #ffffff 50%);
+  width: 52px;
+  height: 52px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-radius: 26px;
+}
+
+.auth-card h1.welcome-header {
+  margin-top: 32px;
+  margin-bottom: 0;
+
+  font-size: 40px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.auth__call-to-action {
+  text-align: center;
+  margin-top: 12px;
+  color: var(--light-grey-3);
+  font-size: 18px;
+  font-weight: normal;
+}
+
+.hr-line {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  overflow: hidden;
+  align-items: center;
+}
+
+.hr-line__before-hr {
+  border-top: 1px solid var(--light-grey);
+  height: 0;
+}
+
+.hr-line__after-hr {
+  border-top: 1px solid var(--light-grey);
+  height: 0;
+}
+
+.hr-line {
+
+}
+
+.hr-line__text {
+  padding: 0 10px;
+  color: var(--light-grey-2);
+}
+
+.additional-actions {
+  margin-top: 32px;
+  font-size: 18px;
+  text-align: center;
+}
+
+// 6% f1f1f1
+// ffffff
+
+
