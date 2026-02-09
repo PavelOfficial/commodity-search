@@ -28,7 +28,7 @@
 
 .search-input-card {
     display: grid;
-    grid-template-columns: auto minmax(400px, 1023px) auto;
+    grid-template-columns: minmax(200px, 0.4fr) minmax(400px, 0.915fr) minmax(200px, 0.4fr);
 }
 
 .whide-card-input {
