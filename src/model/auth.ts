@@ -67,3 +67,6 @@ export const useAuthStore = create<AuthState & AuthActions>()(
 
 export const authUser = (params: AuthParams) =>
   useAuthStore.getState().authUser(params);
+
+export const authLogout = () =>
+  useAuthStore.getState().logout();

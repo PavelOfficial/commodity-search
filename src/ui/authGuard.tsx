@@ -1,26 +1,32 @@
 import { useEffect, type FunctionComponent } from "react";
-import { useNavigate, useMatch } from "react-router";
+import { useMatch, Navigate } from "react-router";
 
 import { useShallow } from "zustand/react/shallow";
 
-import { useAuthStore } from "../model/auth";
+import { authLogout, useAuthStore } from "../model/auth";
 
 export const authGuard = (ChildElement: FunctionComponent) => {
     return () => {
-        const [isAuthorizated, isLoading, error] = useAuthStore(useShallow((state) => [state.isAuthorizated, state.isLoading, state.error]))
-        const navigate = useNavigate();
+        const [isAuthorizated, isLoading, error, rememberMe] = useAuthStore(useShallow((state) => [state.isAuthorizated, state.isLoading, state.error, state.rememberMe]))
         const matchToAuth = useMatch("/login");
 
         useEffect(() => {
-            if (error && !matchToAuth) {
-                navigate("/login");
-            } else if (matchToAuth && !!isAuthorizated) {
-                navigate("/search");
-            }
-        }, [error, isAuthorizated, matchToAuth]);
+            const beforeUnloadHandler = () => {
+              if (!rememberMe) {
+                authLogout();
+              }
+            };
 
-        if (error && !matchToAuth) {
-            return null;
+            window.addEventListener('beforeunload', beforeUnloadHandler);
+
+            return () => {
+                window.removeEventListener('beforeunload', beforeUnloadHandler);
+            };
+        }, [rememberMe]);
+        
+
+        if ((error || !isAuthorizated) && !matchToAuth) {
+            return <Navigate replace to="/login" />;
         }
 
         if (isLoading) {
@@ -28,7 +34,7 @@ export const authGuard = (ChildElement: FunctionComponent) => {
         }
 
         if (matchToAuth && !!isAuthorizated) {
-            return null;
+            return <Navigate replace to="/search" />;
         }
 
         return <ChildElement />;

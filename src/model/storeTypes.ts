@@ -28,7 +28,8 @@ export type AuthState = {
 };
 
 export type AuthActions = {
-  authUser: (params: AuthParams) => void
+  authUser: (params: AuthParams) => void,
+  logout: () => void,
 };
 
 export interface CommodityResponse {
