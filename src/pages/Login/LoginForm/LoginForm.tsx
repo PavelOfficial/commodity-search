@@ -29,8 +29,10 @@ export const LoginForm = () => {
           <EyeInvisibleIcon />
         </button>
       </div>
-      <label className="form-label"><input type="checkbox" name="remember-me" /> Запомнить меня</label>
-      <button type="submit">Войти</button>
+      <label className="form-label form-checkbox-label">
+        <input className="form-checkbox-label__input" type="checkbox" name="remember-me" /><span className="form-checkbox-label__hint">Запомнить меня</span>
+      </label>
+      <button class="primary-button primary-button_full-width form-submit" type="submit">Войти</button>
     </form>
   );
 }

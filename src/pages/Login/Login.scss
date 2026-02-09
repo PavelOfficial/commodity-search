@@ -78,6 +78,7 @@
   grid-template-columns: 1fr auto 1fr;
   overflow: hidden;
   align-items: center;
+  margin-top: 16px;
 }
 
 .hr-line__before-hr {
@@ -96,7 +97,7 @@
 
 .hr-line__text {
   padding: 0 10px;
-  color: var(--light-grey-2);
+  color: var(--medium-grey);
 }
 
 .additional-actions {
