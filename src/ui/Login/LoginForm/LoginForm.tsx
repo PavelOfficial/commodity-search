@@ -13,7 +13,7 @@ import EyeInvisibleIcon from "./eye-invisible-icon.svg?react"
 import EyeVisibleIcon from "./eye-visible-icon.svg?react"
 import { authUser, useAuthStore } from '../../../model/auth'
 
-const useInputRef = (registerUserNameProps: UseFormRegisterReturn<"userName">) => {
+const useInputRef = (registerUserNameProps: UseFormRegisterReturn<string>) => {
   const userInputRef = useRef<HTMLInputElement | null>(null);
   const registerUserNamePropsRefCallback = registerUserNameProps.ref;
   const setUserNameCallback = useCallback((node: HTMLInputElement) => {
