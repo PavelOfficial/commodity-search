@@ -25,10 +25,16 @@
 
 .enhanced-input input {
   border: none;
-  background: none;
+  background: none !important;
+  background-color: transparent !important;
   font-size: 18px;
   padding-left: 54px;
 }
+
+.enhanced-input input:auto-fill {
+  background: none !important;
+  background-color: transparent !important;
+ }
 
 .enhanced-input__icon {
   position: absolute;
@@ -39,7 +45,7 @@
   justify-content: center;
   width: 54px;
   height: 54px;
-  z-index: 0;
+  z-index: 2;
 }
 
 .enhanced-input__action {

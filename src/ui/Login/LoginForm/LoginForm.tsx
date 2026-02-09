@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form"
+import { useForm, type UseFormRegisterReturn } from "react-hook-form"
 import { useCallback, useRef, useState } from "react"
 import { useShallow } from 'zustand/shallow'
 
@@ -13,6 +13,19 @@ import EyeInvisibleIcon from "./eye-invisible-icon.svg?react"
 import EyeVisibleIcon from "./eye-visible-icon.svg?react"
 import { authUser, useAuthStore } from '../../../model/auth'
 
+const useInputRef = (registerUserNameProps: UseFormRegisterReturn<"userName">) => {
+  const userInputRef = useRef<HTMLInputElement | null>(null);
+  const registerUserNamePropsRefCallback = registerUserNameProps.ref;
+  const setUserNameCallback = useCallback((node: HTMLInputElement) => {
+    userInputRef.current = node;
+
+    registerUserNamePropsRefCallback(node);
+  }, []);
+
+  registerUserNameProps.ref = setUserNameCallback;
+
+  return userInputRef;
+};
 
 // 1. Define the Yup validation schema
 const schema = yup.object({
@@ -40,16 +53,12 @@ export const LoginForm = () => {
   });
 
   const userNameValue = watch("userName");
-  const userNameInputRef = useRef<HTMLInputElement | null>(null);
+
   const registerUserNameProps = register("userName");
-  const registerUserNamePropsRefCallback = registerUserNameProps.ref;
-  const setUserNameCalback = useCallback((node: HTMLInputElement) => {
-    userNameInputRef.current = node;
+  const userNameInputRef = useInputRef(registerUserNameProps);
 
-    registerUserNamePropsRefCallback(node);
-  }, []);
-
-  registerUserNameProps.ref = setUserNameCalback;
+  const registerPasswordProps = register("password");
+  const userPasswordRef = useInputRef(registerPasswordProps);
 
   return (
     <form onSubmit={handleSubmit(async (data) => {
@@ -58,7 +67,11 @@ export const LoginForm = () => {
     })} className="login-form">
       <label className="form-label" htmlFor="user-name">Логин</label>
       <div className="enhanced-input">
-        <div className="enhanced-input__icon">
+        <div className="enhanced-input__icon" onClick={() => {
+          if (userPasswordRef.current) {
+            userPasswordRef.current.focus();
+          }
+        }}>
           <UserIcon />
         </div>
         <div className="enhanced-input__controls">
@@ -78,11 +91,15 @@ export const LoginForm = () => {
       {errors.userName && <div className="form-error-message">{errors.userName.message}</div>}
       <label className="form-label" htmlFor="password">Пароль</label>
       <div className="enhanced-input">
-        <div className="enhanced-input__icon">
+        <div className="enhanced-input__icon" onClick={() => {
+          if (userPasswordRef.current) {
+            userPasswordRef.current.focus();
+          }
+        }}>
           <LockIcon />
         </div>
         <div className="enhanced-input__controls">
-          <input type={passwordVisible ? "text" : "password"} {...register("password")}  id="password" />
+          <input type={passwordVisible ? "text" : "password"} {...registerPasswordProps} id="password" />
           <button type="button" className="enhanced-input__action" onClick={() => setPasswordVisible((visible) => !visible)}>
             {passwordVisible ? <EyeVisibleIcon /> : <EyeInvisibleIcon />}
           </button>
