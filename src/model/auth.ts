@@ -48,7 +48,10 @@ const authSlice:StateCreator<
         refreshToken: response.data.refreshToken,
       }); // On success, store data and set loading to false
     } catch (err) {
-      set({ error: err.message, isLoading: false }); // On failure, store error and set loading to false
+      set({ 
+        error: err?.response?.data?.message || err?.message,
+        isLoading: false,
+      }); // On failure, store error and set loading to false
     }
   },
 })

@@ -7,7 +7,7 @@ import { authLogout, useAuthStore } from "../model/auth";
 
 export const authGuard = (ChildElement: FunctionComponent) => {
     return () => {
-        const [isAuthorizated, isLoading, error, rememberMe] = useAuthStore(useShallow((state) => [state.isAuthorizated, state.isLoading, state.error, state.rememberMe]))
+        const [isAuthorizated, error, rememberMe] = useAuthStore(useShallow((state) => [state.isAuthorizated, state.error, state.rememberMe]))
         const matchToAuth = useMatch("/login");
 
         useEffect(() => {
@@ -26,15 +26,11 @@ export const authGuard = (ChildElement: FunctionComponent) => {
         
 
         if ((error || !isAuthorizated) && !matchToAuth) {
-            return <Navigate replace to="/login" />;
-        }
-
-        if (isLoading) {
-            return null;
+            return <Navigate to="/login" />;
         }
 
         if (matchToAuth && !!isAuthorizated) {
-            return <Navigate replace to="/search" />;
+            return <Navigate to="/search" />;
         }
 
         return <ChildElement />;

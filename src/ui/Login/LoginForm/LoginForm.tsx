@@ -36,7 +36,7 @@ const schema = yup.object({
 
 export const LoginForm = () => {    
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [rememberMe] = useAuthStore(useShallow((state) => [state.rememberMe]))
+  const [rememberMe, authError] = useAuthStore(useShallow((state) => [state.rememberMe, state.error]))
   const {   
     setValue,
     register,
@@ -105,10 +105,11 @@ export const LoginForm = () => {
           </button>
         </div>
       </div>
-      {errors.password && <div className="form-error-message">{errors.password.message}</div>}
+      {errors.password && <div className="form-error-message">{errors.password.message}</div>}      
       <label className="form-label form-checkbox-label">
         <input className="form-checkbox-label__input" type="checkbox" {...register("rememberMe")} /><span className="form-checkbox-label__hint">Запомнить меня</span>
       </label>
+      {authError && <div className="form-error-message">Не удалось авторизоваться. {authError}.</div>}
       <button className="primary-button primary-button_full-width form-submit" type="submit">Войти</button>
     </form>
   );
