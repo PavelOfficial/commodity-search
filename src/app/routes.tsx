@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router"
 
-import { Login } from "../pages/Login/Login"
-import { NoMatch } from "../pages/NoMatch"
-import { IndexPage } from "../pages/IndexPage"
-import { Search } from "../pages/Search"
+import { Login } from "../ui/Login/Login"
+import { NoMatch } from "../ui/NoMatch"
+import { IndexPage } from "../ui/IndexPage"
+import { Search } from "../ui/Search"
 
 export const AppRoutes = () => {
   return (

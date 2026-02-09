@@ -1,8 +1,9 @@
 import "./Login.scss"
 import LoginSign from "./login-sign.svg?react"
 import { LoginForm } from "./LoginForm/LoginForm";
+import { authGuard } from '../authGuard';
 
-export const Login = () => {
+export const LoginBase = () => {
   return (
     <div className="auth-backdrop">
       <div className="auth-card">
@@ -28,3 +29,5 @@ export const Login = () => {
     </div>
   );
 }
+
+export const Login = authGuard(LoginBase);

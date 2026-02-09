@@ -10,12 +10,13 @@ import UserIcon from "./user-icon.svg?react"
 import LockIcon from "./lock-icon.svg?react"
 import EyeInvisibleIcon from "./eye-invisible-icon.svg?react"
 import EyeVisibleIcon from "./eye-visible-icon.svg?react"
+import { authUser } from '../../../model/auth'
 
 // 1. Define the Yup validation schema
 const schema = yup.object({
   userName: yup.string().required("User name is required").min(3, "User name must be at least 3 characters"),
   password: yup.string().required("Password is required").min(4, "Password must be at least 4 characters"),
-  rememberMe: yup.boolean(),
+  rememberMe: yup.boolean().required(),
 }).required();
 
 export const LoginForm = () => {
@@ -38,7 +39,10 @@ export const LoginForm = () => {
   const userNameValue = watch("userName");
 
   return (
-    <form onSubmit={handleSubmit((data) => console.log(data))} className="login-form">
+    <form onSubmit={handleSubmit(async (data) => {
+      await authUser(data);
+      // console.log(data) 
+    })} className="login-form">
       <label className="form-label" htmlFor="user-name">Логин</label>
       <div className="enhanced-input">
         <div className="enhanced-input__icon">
