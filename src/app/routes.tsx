@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from "react-router"
 
 import { Login } from "../ui/Login/Login"
-import { Search } from "../ui/Search"
+import { Search } from "../ui/Search/Search"
 
 export const AppRoutes = () => {
   return (

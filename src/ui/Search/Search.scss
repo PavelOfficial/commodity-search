@@ -1,0 +1,40 @@
+.search-backdrop {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;    
+    justify-content: start;
+
+    background: var(--white-grey-2);
+}
+
+.search-input-box {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    background: var(--white);
+}
+
+.search-list-box {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    background: var(--white);
+}
+
+.content-container {
+    max-width: 1920px;
+    flex-grow: 1;
+}
+
+.search-input-card {
+    display: grid;
+    grid-template-columns: auto minmax(400px, 1023px) auto;
+}
+
+.whide-card-input {
+    width: 100%;
+    height: 48px;
+    border: none;
+    border-radius: 8px;
+    background: var(--white-grey-3);
+}
