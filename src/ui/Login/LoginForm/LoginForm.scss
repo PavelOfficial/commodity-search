@@ -6,26 +6,40 @@
 }
 
 .enhanced-input {
+  position: relative;
   background: var(--white);
   box-sizing: border-box;
   height: 55px;
-  display: grid;
-  grid-template-columns: 54px 1fr 54px;
   margin-top: 6px;
   border-radius: 12px;
   border: 1px solid var(--light-grey);
+}
+
+.enhanced-input__controls {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 54px;
+  height: 53px;
+  z-index: 1;
 }
 
 .enhanced-input input {
   border: none;
   background: none;
   font-size: 18px;
+  padding-left: 54px;
 }
 
 .enhanced-input__icon {
+  position: absolute;
+  top: 0;
+  left: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 54px;
+  height: 54px;
+  z-index: 0;
 }
 
 .enhanced-input__action {

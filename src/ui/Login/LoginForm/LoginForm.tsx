@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form"
-import { useState } from "react"
+import { useCallback, useRef, useState } from "react"
 
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
@@ -14,12 +14,12 @@ import { authUser } from '../../../model/auth'
 
 // 1. Define the Yup validation schema
 const schema = yup.object({
-  userName: yup.string().required("User name is required").min(3, "User name must be at least 3 characters"),
-  password: yup.string().required("Password is required").min(4, "Password must be at least 4 characters"),
+  userName: yup.string().required("Введите имя пользователя").min(3, "Имя пользователя должно быть как минимум 3 символа"),
+  password: yup.string().required("Введите пароль").min(4, "Пароль пользователя должен быть как минимум 4 символа"),
   rememberMe: yup.boolean().required(),
 }).required();
 
-export const LoginForm = () => {
+export const LoginForm = () => {    
   const [passwordVisible, setPasswordVisible] = useState(false);
   const {   
     setValue,
@@ -37,6 +37,16 @@ export const LoginForm = () => {
   });
 
   const userNameValue = watch("userName");
+  const userNameInputRef = useRef<HTMLInputElement | null>(null);
+  const registerUserNameProps = register("userName");
+  const registerUserNamePropsRefCallback = registerUserNameProps.ref;
+  const setUserNameCalback = useCallback((node: HTMLInputElement) => {
+    userNameInputRef.current = node;
+
+    registerUserNamePropsRefCallback(node);
+  }, []);
+
+  registerUserNameProps.ref = setUserNameCalback;
 
   return (
     <form onSubmit={handleSubmit(async (data) => {
@@ -48,10 +58,19 @@ export const LoginForm = () => {
         <div className="enhanced-input__icon">
           <UserIcon />
         </div>
-        <input {...register("userName")} id="user-name" />
-        {!!userNameValue && <button className="enhanced-input__action" onClick={() => setValue("userName", "")}>
-          <Cross />
-        </button>}
+        <div className="enhanced-input__controls">
+          <input {...registerUserNameProps} id="user-name" />
+          {!!userNameValue && <button type="button" className="enhanced-input__action"
+            onClick={() => {
+              setValue("userName", "");
+              
+              if (userNameInputRef.current) {
+                userNameInputRef.current.focus();
+              }           
+            }}>
+            <Cross />
+          </button>}
+        </div>
       </div>
       {errors.userName && <div className="form-error-message">{errors.userName.message}</div>}
       <label className="form-label" htmlFor="password">Пароль</label>
@@ -59,10 +78,12 @@ export const LoginForm = () => {
         <div className="enhanced-input__icon">
           <LockIcon />
         </div>
-        <input type={passwordVisible ? "text" : "password"} {...register("password")}  id="password" />
-        <button className="enhanced-input__action" onClick={() => setPasswordVisible((visible) => !visible)}>
-          {passwordVisible ? <EyeVisibleIcon /> : <EyeInvisibleIcon />}
-        </button>
+        <div className="enhanced-input__controls">
+          <input type={passwordVisible ? "text" : "password"} {...register("password")}  id="password" />
+          <button type="button" className="enhanced-input__action" onClick={() => setPasswordVisible((visible) => !visible)}>
+            {passwordVisible ? <EyeVisibleIcon /> : <EyeInvisibleIcon />}
+          </button>
+        </div>
       </div>
       {errors.password && <div className="form-error-message">{errors.password.message}</div>}
       <label className="form-label form-checkbox-label">
