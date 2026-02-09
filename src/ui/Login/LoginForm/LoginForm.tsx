@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form"
 import { useCallback, useRef, useState } from "react"
+import { useShallow } from 'zustand/shallow'
 
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
@@ -10,7 +11,8 @@ import UserIcon from "./user-icon.svg?react"
 import LockIcon from "./lock-icon.svg?react"
 import EyeInvisibleIcon from "./eye-invisible-icon.svg?react"
 import EyeVisibleIcon from "./eye-visible-icon.svg?react"
-import { authUser } from '../../../model/auth'
+import { authUser, useAuthStore } from '../../../model/auth'
+
 
 // 1. Define the Yup validation schema
 const schema = yup.object({
@@ -21,6 +23,7 @@ const schema = yup.object({
 
 export const LoginForm = () => {    
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [rememberMe] = useAuthStore(useShallow((state) => [state.rememberMe]))
   const {   
     setValue,
     register,
@@ -31,7 +34,7 @@ export const LoginForm = () => {
     defaultValues: {
       userName: "",
       password: "",
-      rememberMe: false,
+      rememberMe: rememberMe,
     },
     resolver: yupResolver(schema)
   });

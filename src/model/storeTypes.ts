@@ -1,29 +1,3 @@
-import { CoffeItem, CoffeeQueryParams, CoffeeType } from "../types/coffeTypes";
-
-export type CoffeeCartState = {
-  cart?: CoffeItem[];
-  address?: string;
-};
-
-export type CoffeeCartActions = {
-  setAddress: (address: string) => void;
-  addToCart: (item: CoffeeType) => void;
-  orderCoffee: () => void;
-  clearCart: () => void;
-};
-
-export type CoffeeListState = {
-  coffeeList?: CoffeeType[];
-  controller?: AbortController;
-  params: CoffeeQueryParams;
-};
-
-export type CoffeeListActions = {
-  getCoffeeList: (params?: CoffeeQueryParams) => Promise<CoffeeType[]>;
-  setParams: (params?: CoffeeQueryParams) => void;
-};
-
-//-----
 export interface AuthParams {
   userName: string,
   password: string,
@@ -42,7 +16,12 @@ export interface AuthResponse {
   username: string
 }
 
-export type AuthState = {
+export type AuthState = { 
+  accessToken: null | string,
+  refreshToken: null | string,
+
+  rememberMe: boolean
+
   isAuthorizated: boolean,
   isLoading: boolean,
   error: null | string,
@@ -50,4 +29,67 @@ export type AuthState = {
 
 export type AuthActions = {
   authUser: (params: AuthParams) => void
+};
+
+export interface CommodityResponse {
+    products: Product[];
+    total:    number;
+    skip:     number;
+    limit:    number;
+}
+
+export interface Product {
+  id:                   number;
+  title:                string;
+  description:          string;
+  category:             string;
+  price:                number;
+  discountPercentage:   number;
+  rating:               number;
+  stock:                number;
+  tags:                 string[];
+  brand:                string;
+  sku:                  string;
+  weight:               number;
+  dimensions:           Dimensions;
+  warrantyInformation:  string;
+  shippingInformation:  string;
+  availabilityStatus:   string;
+  reviews:              Review[];
+  returnPolicy:         string;
+  minimumOrderQuantity: number;
+  meta:                 Meta;
+  thumbnail:            string;
+  images:               string[];
+}
+
+export interface Dimensions {
+    width:  number;
+    height: number;
+    depth:  number;
+}
+
+export interface Meta {
+    createdAt: Date;
+    updatedAt: Date;
+    barcode:   string;
+    qrCode:    string;
+}
+
+export interface Review {
+    rating:        number;
+    comment:       string;
+    date:          Date;
+    reviewerName:  string;
+    reviewerEmail: string;
+}
+
+export type CommodityState = {
+  products: Product[],
+  isLoading: boolean,
+  error: null | string,
+};
+
+export type CommodityActions = {
+  getCommodityList: () => void
 };

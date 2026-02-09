@@ -1,4 +1,4 @@
-import type { FunctionComponent } from "react";
+import { useEffect, type FunctionComponent } from "react";
 import { useNavigate, useMatch } from "react-router";
 
 import { useShallow } from "zustand/react/shallow";
@@ -9,10 +9,17 @@ export const authGuard = (ChildElement: FunctionComponent) => {
     return () => {
         const [isAuthorizated, isLoading, error] = useAuthStore(useShallow((state) => [state.isAuthorizated, state.isLoading, state.error]))
         const navigate = useNavigate();
-        const matchToAuth = useMatch("login")
+        const matchToAuth = useMatch("/login");
+
+        useEffect(() => {
+            if (error && !matchToAuth) {
+                navigate("/login");
+            } else if (matchToAuth && !!isAuthorizated) {
+                navigate("/search");
+            }
+        }, [error, isAuthorizated, matchToAuth]);
 
         if (error && !matchToAuth) {
-            navigate("/login")
             return null;
         }
 
@@ -21,7 +28,6 @@ export const authGuard = (ChildElement: FunctionComponent) => {
         }
 
         if (matchToAuth && !!isAuthorizated) {
-            navigate("/search");
             return null;
         }
 
