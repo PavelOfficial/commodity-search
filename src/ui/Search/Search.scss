@@ -16,6 +16,7 @@
 
 .content-container {
     max-width: 1920px;
+    min-width: 1200px;
     flex-grow: 1;
 }
 
@@ -118,8 +119,11 @@
 .commodity-table-line {
     display: grid;
     grid-template-columns: 22px 2fr repeat(5, 1fr);
+    align-items: center;
     gap: 20px;
     padding: 0 18px;
+    height: 73px;
+    box-sizing: border-box;
 }
 
 .commodity-table-line_header {
@@ -130,4 +134,120 @@
 
 .center-text {
     text-align: center;
+}
+
+.commodity-table-line_table-row {
+    border: 1px solid var(--light-grey-5);
+    border-left: none;
+    border-right: none;
+    font-size: 16px;
+}
+
+.commodity-figure {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 18px;
+    align-items: center;
+}
+
+.commodity-figure__image {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    background-color: var(--medium-grey-3);
+}
+
+.commodity-figure__image img {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+}
+
+.commodity-figure__caption {
+    
+}
+
+.commodity-figure__caption-name {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.commodity-figure__caption-category {
+    font-size: 14px;
+    color: var(--medium-grey-2);
+}
+
+.bold-text {
+    font-weight: bold;
+}
+
+.primary-button_tiny {
+    display: flex;
+    align-items: center;
+    height: 27px;
+    border-radius: 23px;
+    padding: 0 14px;
+}
+
+.center-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+}
+
+.icon-button {
+    border: none;
+    padding: 0;
+    background-color: transparent;
+}
+
+.button-more {
+    width: 26px;
+    height: 26px;
+}
+
+.commodity-table__footer {
+    display: grid;
+    grid-template-columns: minmax(300px, 1fr) minmax(300px, 1fr);
+    align-items: center;
+    margin-top: 40px;
+    height: 52px;
+}
+
+.commodity-table__total-caption {
+    color: var(--dark-grey-2);
+}
+
+.important-caption {
+    color: var(--dark-2);
+}
+
+.commodity-table__pagination {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 8px;
+}
+
+.pagination-slide-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding-top: 0;
+    padding-bottom: 0;
+    width: 30px;
+    height: 30px;
+    color: var(--medium-grey-2);
+}
+
+.pagination-arrow-button {
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.pagination-slide-button_selected {
+    color: var(--white);
+    background: var(--primary-axtra-pale);
 }
