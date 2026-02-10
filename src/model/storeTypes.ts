@@ -86,6 +86,7 @@ export interface Review {
 }
 
 export type CommodityState = {
+  selectedProducts: Set<number>
   products: Product[],
   isLoading: boolean,
   error: null | string,
@@ -93,4 +94,6 @@ export type CommodityState = {
 
 export type CommodityActions = {
   getCommodityList: () => void
+  setSelectedProduct: (id: number, selected: boolean) => void
+  setAllProductsSelected: (selected: boolean) => void
 };

@@ -4,12 +4,50 @@ import type { AxiosResponse } from 'axios';
 import { axios } from '../query';
 import type { CommodityActions, CommodityResponse, CommodityState } from './storeTypes';
 
+import { immer } from "zustand/middleware/immer";
+import { produce } from 'immer';
 
-const commoditySlice: StateCreator<CommodityState & CommodityActions> = (set) => ({
+const commoditySlice: StateCreator<
+  CommodityState & CommodityActions,
+  [["zustand/immer", unknown]]
+> = (set) => ({
   // State
+  selectedProducts: new Set<number>(),
   products: [],
   isLoading: false,
   error: null,
+
+  setSelectedProduct(id: number, selected: boolean) {
+    if (selected) {
+      set(
+        produce<CommodityState>((draft) => {
+          draft.selectedProducts.add(id)
+        })
+      );
+    } else {
+      set(
+        produce<CommodityState>((draft) => {
+          draft.selectedProducts.delete(id)
+        })
+      );
+    }
+  },
+
+  setAllProductsSelected(selected: boolean) {
+    if (selected) {
+      set(
+        produce<CommodityState>((draft) => {
+          draft.products.forEach(({ id }) => {            
+            draft.selectedProducts.add(id);
+          });
+        })
+      );
+    } else {
+      set({
+        selectedProducts: new Set<number>(),
+      });
+    }
+  },
 
   // Action to fetch data
   getCommodityList: async () => {
@@ -19,14 +57,27 @@ const commoditySlice: StateCreator<CommodityState & CommodityActions> = (set) =>
         headers: { 'Content-Type': 'application/json' },
       });
 
-      set({ products: response.data.products, isLoading: false }); // On success, store data and set loading to false
+      set({ 
+        selectedProducts: new Set<number>(),
+        products: response.data.products, 
+        isLoading: false 
+      }); // On success, store data and set loading to false
     } catch (err) {
-      set({ error: err.message, isLoading: false }); // On failure, store error and set loading to false
+      set({ 
+        error: err.message, 
+        isLoading: false 
+      }); // On failure, store error and set loading to false
     }
   },
 })
 
-export const useCommodityStore = create(commoditySlice);
+export const useCommodityStore = create<CommodityState & CommodityActions>()(immer(commoditySlice));
 
 export const getCommodityList = () =>
   useCommodityStore.getState().getCommodityList();
+
+export const setSelectedProduct = (id: number, selected: boolean) =>
+  useCommodityStore.getState().setSelectedProduct(id, selected);
+
+export const setAllProductsSelected = (selected: boolean) =>
+  useCommodityStore.getState().setAllProductsSelected(selected);

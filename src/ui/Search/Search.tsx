@@ -1,58 +1,30 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useShallow } from 'zustand/shallow'
 
 import SearchIcon from "./search.svg?react"
 import "./Search.scss"
 
-import { getCommodityList, useCommodityStore } from '../../model/commodity'
+import { getCommodityList, setSelectedProduct, setAllProductsSelected, useCommodityStore } from '../../model/commodity'
 import { authGuard } from '../authGuard'
 import PlusCircle from "./plus-circle.svg?react"
 import ArrowsClockwise from "./arrows-clockwise.svg?react"
-import PlusIcon from "./plus-ico.svg?react"
-import MoreIcon from "./more-icon.svg?react"
+
 import ArrowLeft from "./arrow-left.svg?react"
 import ArrowRight from "./arrow-right.svg?react"
 import { Checkbox } from '../../lib/ui-kit/Checkbox'
-
-const renderLine = () => {
-  return (
-    <div className="commodity-table-line commodity-table-line__table-row commodity-table-line__table-row_active">
-      <div><Checkbox /></div>
-      <div>
-        <div className="commodity-figure">
-          <div className="commodity-figure__image">
-            <img src="#" alt="" />
-          </div>
-          <div className="commodity-figure__caption">
-            <div className="commodity-figure__caption-name">USB Флэшкарта 16GB</div>
-            <div className="commodity-figure__caption-category">Аксессуары</div>
-          </div>
-        </div>
-      </div>
-      <div className="center-text bold-text">Samsung</div>
-      <div className="center-text">RCH45Q1A</div>
-      <div className="center-text">4.3/5</div>
-      <div className="center-text">48 652<span className="decimals">,00</span></div>
-      <div className="center-content">
-        <button type="button" className="primary-button primary-button_tiny">
-          <PlusIcon />
-        </button>
-        <button type="button" className="icon-button button-more">
-          <MoreIcon />
-        </button>
-      </div>
-    </div>
-  )
-}
+import { ProductTableLine } from './ProductTableLine/ProductTableLine'
 
 export const SearchBase = () => {
   useEffect(() => {
     getCommodityList()
   }, []);
 
-  const [products] = useCommodityStore(useShallow((state) => [state.products]));
+  const [products, selectedProducts] = useCommodityStore(useShallow((state) => [state.products, state.selectedProducts]));
+  const handleAllSelectedChange: React.ChangeEventHandler<HTMLInputElement, HTMLInputElement> = (event) => {
+    const selected = event.target.checked;
 
-  console.log("products: ", products);
+    setAllProductsSelected(selected);
+  };
   
   return (
     <div className="search-backdrop">
@@ -91,7 +63,12 @@ export const SearchBase = () => {
           </div>
           <div className="commodity-table">
             <div className="commodity-table-line commodity-table-line_header">
-              <div><Checkbox /></div>
+              <div>
+                <Checkbox 
+                  checked={products.length === selectedProducts.size}
+                  onChange={handleAllSelectedChange} 
+                />
+              </div>
               <div>Наименование</div>
               <div className="center-text">Вендор</div>
               <div className="center-text">Артикул</div>
@@ -99,12 +76,16 @@ export const SearchBase = () => {
               <div className="center-text">Цена, ₽</div>
               <div></div>
             </div>
-            {renderLine()}
-            {renderLine()}
-            {renderLine()}
-            {renderLine()}
-            {renderLine()}
-            {renderLine()}
+            {products.map((product) => {
+                return (
+                    <ProductTableLine
+                      key={product.id}
+                      product={product}
+                      selected={selectedProducts.has(product.id)}
+                      onSelect={setSelectedProduct}
+                    />
+                );
+            })}
             <div className="commodity-table__footer">
               <div className="commodity-table__total-caption">
                 Показано <span className="important-caption">1-20</span> из <span className="important-caption">120</span>
@@ -136,10 +117,6 @@ export const SearchBase = () => {
           </div>          
         </div>
       </div>
-      {/* 
-        <div>Search</div>
-        {JSON.stringify(products)}
-      */}
     </div>
   );
 }

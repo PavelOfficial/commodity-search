@@ -1,10 +1,15 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from "react-router";
+import { enableMapSet } from 'immer';
 
 import './index.scss'
 import { AppRoutes } from "./routes";
 
+// init
+enableMapSet();
+
+// mount
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
