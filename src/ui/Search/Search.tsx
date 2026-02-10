@@ -9,8 +9,6 @@ import { authGuard } from '../authGuard'
 import PlusCircle from "./plus-circle.svg?react"
 import ArrowsClockwise from "./arrows-clockwise.svg?react"
 
-import ArrowLeft from "./arrow-left.svg?react"
-import ArrowRight from "./arrow-right.svg?react"
 import { Checkbox } from '../../lib/ui-kit/Checkbox'
 import { ProductTableLine } from './ProductTableLine/ProductTableLine'
 
@@ -110,29 +108,11 @@ export const SearchBase = () => {
               </div>
               <div className="commodity-table__pagination">
                 {total !== null && skip !== null && limit !== null &&
-                  <>
-                    <button type="button" className="icon-button pagination-slide-button pagination-arrow-button">
-                      <ArrowLeft />
-                    </button>
-                    <button type="button" className="ghost-button pagination-slide-button">
-                      1
-                    </button>
-                    <button type="button" className="ghost-button pagination-slide-button pagination-slide-button_selected">
-                      2
-                    </button>
-                    <button type="button" className="ghost-button pagination-slide-button">
-                      3
-                    </button>
-                    <button type="button" className="ghost-button pagination-slide-button">
-                      4
-                    </button>
-                    <button type="button" className="ghost-button pagination-slide-button">
-                      5
-                    </button>
-                    <button type="button" className="icon-button pagination-slide-button pagination-arrow-button">
-                      <ArrowRight />
-                    </button>
-                  </>
+                  <Pagination 
+                    total={total}
+                    skip={skip}
+                    limit={limit}
+                  />                   
                 }
               </div>
             </div>
