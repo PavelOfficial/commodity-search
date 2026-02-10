@@ -14,6 +14,10 @@ const commoditySlice: StateCreator<
   // State
   selectedProducts: new Set<number>(),
   products: [],
+  total: null,
+  skip: null,
+  limit: null,
+
   isLoading: false,
   error: null,
 
@@ -57,9 +61,14 @@ const commoditySlice: StateCreator<
         headers: { 'Content-Type': 'application/json' },
       });
 
+      const data = response.data;
+
       set({ 
         selectedProducts: new Set<number>(),
-        products: response.data.products, 
+        products: data.products, 
+        total: data.total,
+        skip: data.skip,
+        limit: data.limit,
         isLoading: false 
       }); // On success, store data and set loading to false
     } catch (err) {

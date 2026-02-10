@@ -88,6 +88,9 @@ export interface Review {
 export type CommodityState = {
   selectedProducts: Set<number>
   products: Product[],
+  total: number | null
+  skip: number | null
+  limit: number | null
   isLoading: boolean,
   error: null | string,
 };

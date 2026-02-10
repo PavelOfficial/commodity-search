@@ -19,7 +19,19 @@ export const SearchBase = () => {
     getCommodityList()
   }, []);
 
-  const [products, selectedProducts] = useCommodityStore(useShallow((state) => [state.products, state.selectedProducts]));
+  const [
+    products, 
+    selectedProducts,
+    total,
+    skip,
+    limit,
+  ] = useCommodityStore(useShallow((state) => [
+    state.products,
+    state.selectedProducts,
+    state.total,
+    state.skip,
+    state.limit,
+  ]));
   const handleAllSelectedChange: React.ChangeEventHandler<HTMLInputElement, HTMLInputElement> = (event) => {
     const selected = event.target.checked;
 
@@ -88,30 +100,40 @@ export const SearchBase = () => {
             })}
             <div className="commodity-table__footer">
               <div className="commodity-table__total-caption">
-                Показано <span className="important-caption">1-20</span> из <span className="important-caption">120</span>
+                {total !== null && skip !== null && limit !== null &&
+                  <>
+                    Показано 
+                    <span className="important-caption">{skip + 1}-{skip + limit}</span> из 
+                    <span className="important-caption">{total}</span>
+                  </>
+                }
               </div>
               <div className="commodity-table__pagination">
-                <button type="button" className="icon-button pagination-slide-button pagination-arrow-button">
-                  <ArrowLeft />
-                </button>
-                <button type="button" className="ghost-button pagination-slide-button">
-                  1
-                </button>
-                <button type="button" className="ghost-button pagination-slide-button pagination-slide-button_selected">
-                  2
-                </button>
-                <button type="button" className="ghost-button pagination-slide-button">
-                  3
-                </button>
-                <button type="button" className="ghost-button pagination-slide-button">
-                  4
-                </button>
-                <button type="button" className="ghost-button pagination-slide-button">
-                  5
-                </button>
-                <button type="button" className="icon-button pagination-slide-button pagination-arrow-button">
-                  <ArrowRight />
-                </button>
+                {total !== null && skip !== null && limit !== null &&
+                  <>
+                    <button type="button" className="icon-button pagination-slide-button pagination-arrow-button">
+                      <ArrowLeft />
+                    </button>
+                    <button type="button" className="ghost-button pagination-slide-button">
+                      1
+                    </button>
+                    <button type="button" className="ghost-button pagination-slide-button pagination-slide-button_selected">
+                      2
+                    </button>
+                    <button type="button" className="ghost-button pagination-slide-button">
+                      3
+                    </button>
+                    <button type="button" className="ghost-button pagination-slide-button">
+                      4
+                    </button>
+                    <button type="button" className="ghost-button pagination-slide-button">
+                      5
+                    </button>
+                    <button type="button" className="icon-button pagination-slide-button pagination-arrow-button">
+                      <ArrowRight />
+                    </button>
+                  </>
+                }
               </div>
             </div>
           </div>          
