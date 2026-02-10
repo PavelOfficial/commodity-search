@@ -8,6 +8,7 @@ import { getCommodityList, useCommodityStore } from '../../model/commodity'
 import { authGuard } from '../authGuard'
 import PlusCircle from "./plus-circle.svg?react"
 import ArrowsClockwise from "./arrows-clockwise.svg?react"
+import { Checkbox } from '../../lib/ui-kit/Checkbox'
 
 export const SearchBase = () => {
   useEffect(() => {
@@ -55,7 +56,7 @@ export const SearchBase = () => {
           </div>
           <div className="commodity-table">
             <div className="commodity-table-line commodity-table-line_header">
-              <div></div>
+              <div><Checkbox /></div>
               <div>Наименование</div>
               <div className="center-text">Вендор</div>
               <div className="center-text">Артикул</div>

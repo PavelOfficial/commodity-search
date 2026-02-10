@@ -1,0 +1,28 @@
+.checkbox-container {
+    position: relative;
+}
+
+.checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    height: 22px;
+    width: 22px;
+	z-index: 1;
+}
+
+/* Create a custom checkbox (the checkmark span) */
+.checkbox-container .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 22px;
+    width: 22px;
+    background-color: transparent; 
+    border-radius: 4px;
+	border: 1px solid var(--medium-grey-2);
+}
+
+/* Style the checkmark span when the checkbox is checked */
+.checkbox-container input:checked ~ .checkmark {
+    background-color: var(--primary-pale); /* Color when checked */
+}
