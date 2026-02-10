@@ -6,6 +6,8 @@ import "./Search.scss"
 
 import { getCommodityList, useCommodityStore } from '../../model/commodity'
 import { authGuard } from '../authGuard'
+import PlusCircle from "./plus-circle.svg?react"
+import ArrowsClockwise from "./arrows-clockwise.svg?react"
 
 export const SearchBase = () => {
   useEffect(() => {
@@ -35,8 +37,33 @@ export const SearchBase = () => {
         </div>
       </div>
       <div className="search-list-box">
-        <div className="content-container">
-          wqe wqe<br/><br/>
+        <div className="content-container card-content">
+          <div className="content-header">
+            <div>
+              <h2>
+                Все позиции
+              </h2>
+            </div>
+            <div className="content-header__controls">
+              <button type="button" className="ghost-button">
+                <ArrowsClockwise />
+              </button>
+              <button type="button" className="primary-button primary-button_simple">
+                <div className="button-icon"><PlusCircle /></div>Добавить
+              </button>
+            </div>
+          </div>
+          <div className="commodity-table">
+            <div className="commodity-table-line commodity-table-line_header">
+              <div></div>
+              <div>Наименование</div>
+              <div className="center-text">Вендор</div>
+              <div className="center-text">Артикул</div>
+              <div className="center-text">Оценка</div>
+              <div className="center-text">Цена, ₽</div>
+              <div></div>
+            </div>
+          </div>          
         </div>
       </div>
       {/* 

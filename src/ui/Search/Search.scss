@@ -7,13 +7,6 @@
     background: var(--white-grey-2);
 }
 
-.search-input-box {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    background: var(--white);
-}
-
 .search-list-box {
     display: flex;
     justify-content: center;
@@ -64,4 +57,77 @@
 
 .icon-input__input {
     padding: 0 20px 0 52px;
+}
+
+.card-content {
+    padding: 30px;
+}
+
+.search-input-box {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    background: var(--white);
+}
+
+.content-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.content-header h2 {
+    font-size: 21px;
+    font-weight: bold;
+}
+
+.primary-button_simple {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 6px;
+    height: 42px;
+    padding: 0 20px;
+}
+
+.button-icon {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 16px;
+}
+
+.content-header__controls {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    gap: 8px;
+}
+
+.ghost-button {
+    height: 42px;
+    background-color: transparent;
+    border-radius: 6px;
+    padding: 10px;
+    border: 1px solid var(--light-grey-4);
+}
+
+.commodity-table {
+    margin-top: 40px;
+}
+
+.commodity-table-line {
+    display: grid;
+    grid-template-columns: 22px 2fr repeat(5, 1fr);
+    gap: 20px;
+    padding: 0 18px;
+}
+
+.commodity-table-line_header {
+    color: var(--medium-grey-2);
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.center-text {
+    text-align: center;
 }
