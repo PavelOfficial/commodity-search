@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useShallow } from 'zustand/shallow'
 
+import SearchIcon from "./search.svg?react"
 import "./Search.scss"
 
 import { getCommodityList, useCommodityStore } from '../../model/commodity'
@@ -19,8 +20,18 @@ export const SearchBase = () => {
     <div className="search-backdrop">
       <div className="search-input-box">
         <div className="content-container search-input-card">
-          <div>Товары</div>
-          <div><input className="whide-card-input" type="text" /></div>
+          <label className="card-input-label" htmlFor="search-input">Товары</label>
+          <div className="icon-input">
+            <div className="icon-input__icon">
+                <SearchIcon />
+            </div>
+            <input 
+              id="search-input"
+              placeholder="Найти" 
+              className="whide-card-input icon-input__input" 
+              type="text" 
+            />
+          </div>
         </div>
       </div>
       <div className="search-list-box">
