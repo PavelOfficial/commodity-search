@@ -16,7 +16,7 @@ import { Checkbox } from '../../lib/ui-kit/Checkbox'
 
 const renderLine = () => {
   return (
-    <div className="commodity-table-line commodity-table-line_table-row">
+    <div className="commodity-table-line commodity-table-line__table-row commodity-table-line__table-row_active">
       <div><Checkbox /></div>
       <div>
         <div className="commodity-figure">

@@ -136,11 +136,25 @@
     text-align: center;
 }
 
-.commodity-table-line_table-row {
+.commodity-table-line__table-row {
+    position: relative;
     border: 1px solid var(--light-grey-5);
     border-left: none;
     border-right: none;
     font-size: 16px;
+}
+
+.commodity-table-line__table-row_active {
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        height: 100%;
+        width: 3px;
+        background: var(--primary-pale);
+    }
 }
 
 .commodity-figure {
