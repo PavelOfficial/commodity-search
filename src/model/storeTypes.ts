@@ -93,6 +93,7 @@ export type CommodityState = {
   limit: number | null
   isLoading: boolean,
   error: null | string,
+  query: string
 };
 
 export interface CommodityListOptions {
@@ -104,4 +105,5 @@ export type CommodityActions = {
   getCommodityList: (options?: CommodityListOptions | Record<string, unknown>) => void
   setSelectedProduct: (id: number, selected: boolean) => void
   setAllProductsSelected: (selected: boolean) => void
+  setCommodityQuery: (query: string) => void
 };

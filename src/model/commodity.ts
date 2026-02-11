@@ -10,13 +10,14 @@ import { produce } from 'immer';
 const commoditySlice: StateCreator<
   CommodityState & CommodityActions,
   [["zustand/immer", unknown]]
-> = (set) => ({
+> = (set, get) => ({
   // State
   selectedProducts: new Set<number>(),
   products: [],
   total: null,
   skip: null,
   limit: null,
+  query: "",
 
   isLoading: false,
   error: null,
@@ -53,13 +54,24 @@ const commoditySlice: StateCreator<
     }
   },
 
+  setCommodityQuery:(query: string) => {
+    set({
+      query,
+    });
+  },
+
   // Action to fetch data
   getCommodityList: async (options: CommodityListOptions = {}) => {
     set({ isLoading: true, error: null }); // Set loading to true and clear previous errors
     try {
-      const response = await axios.get<void, AxiosResponse<CommodityResponse>>('https://dummyjson.com/products', {
+      const url = get().query ? "https://dummyjson.com/products/search" : "https://dummyjson.com/products";
+      const response = await axios.get<void, AxiosResponse<CommodityResponse>>(url, {
         headers: { 'Content-Type': 'application/json' },
-        params: options,
+        params: {
+          limit: options.limit,
+          skip: options.skip,
+          q: get().query,
+        },
       });
 
       const data = response.data;
@@ -91,3 +103,6 @@ export const setSelectedProduct = (id: number, selected: boolean) =>
 
 export const setAllProductsSelected = (selected: boolean) =>
   useCommodityStore.getState().setAllProductsSelected(selected);
+
+export const setCommodityQuery = (query: string) =>
+  useCommodityStore.getState().setCommodityQuery(query);

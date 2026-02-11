@@ -1,10 +1,11 @@
-import { useEffect } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import { useShallow } from 'zustand/shallow'
+import { debounce } from 'lodash'
 
 import SearchIcon from "./search.svg?react"
 import "./Search.scss"
 
-import { getCommodityList, setSelectedProduct, setAllProductsSelected, useCommodityStore } from '../../model/commodity'
+import { getCommodityList, setSelectedProduct, setAllProductsSelected, useCommodityStore, setCommodityQuery } from '../../model/commodity'
 import { authGuard } from '../authGuard'
 import PlusCircle from "./plus-circle.svg?react"
 import ArrowsClockwise from "./arrows-clockwise.svg?react"
@@ -17,7 +18,6 @@ const PAGINATION_LIMIT = 30;
 
 export const SearchBase = () => {
   useEffect(() => {
-    // ?limit=10&skip=10
     getCommodityList({
       limit: PAGINATION_LIMIT,
     });
@@ -28,13 +28,13 @@ export const SearchBase = () => {
     selectedProducts,
     paginationTotal,
     paginationSkip,
-    paginationLimit,
+    query,
   ] = useCommodityStore(useShallow((state) => [
     state.products,
     state.selectedProducts,
     state.total,
-    state.skip,
-    state.limit,
+    state.skip,    
+    state.query,
   ]));
 
   const handleAllSelectedChange: React.ChangeEventHandler<HTMLInputElement, HTMLInputElement> = (event) => {
@@ -48,6 +48,24 @@ export const SearchBase = () => {
       skip,
       limit: PAGINATION_LIMIT,
     })
+  };
+
+  const getCommodityListByQuery = useCallback(() => {
+    getCommodityList({
+      skip: 0,
+      limit: PAGINATION_LIMIT,
+    });
+  }, []);
+
+  const getCommodityListByQueryDebounced = useMemo(() => {
+    return debounce(getCommodityListByQuery, 500);
+  }, [getCommodityListByQuery]);
+  
+
+  const handleChangeQuery: React.ChangeEventHandler<HTMLInputElement, HTMLInputElement> = (event) => {
+    setCommodityQuery(event.target.value);
+
+    getCommodityListByQueryDebounced();
   };
   
   return (
@@ -64,6 +82,8 @@ export const SearchBase = () => {
               placeholder="Найти" 
               className="whide-card-input icon-input__input" 
               type="text" 
+              value={query}
+              onChange={handleChangeQuery}
             />
           </div>
         </div>
