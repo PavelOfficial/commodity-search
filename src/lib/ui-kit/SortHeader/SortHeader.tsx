@@ -27,8 +27,8 @@ export const SortHeader = ({
                 })
             } else if (order === "desc") {
                 onSortChange({
-                    order: "asc",
-                    sortBy: name,
+                    order: null,
+                    sortBy: null,
                 })
             } else {
                 onSortChange({

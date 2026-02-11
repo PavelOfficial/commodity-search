@@ -55,7 +55,8 @@ export const Pagination = ({ total, skip, limit, onSkipChange }: Props) => {
                 const selected = pageIndex === selectedPage;
 
                 return (
-                    <button type="button" 
+                    <button key={index}
+                            type="button" 
                             onClick={() => handleSelectPage(pageIndex)}
                             className={classNames({
                                 "ghost-button pagination-slide-button": true,

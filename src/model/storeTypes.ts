@@ -104,8 +104,8 @@ export interface CommodityListOptions {
 }
 
 export interface SortChangeOptions {
-  order: "asc" | "desc"
-  sortBy: string
+  order: "asc" | "desc" | null
+  sortBy: string | null
 }
 
 export type CommodityActions = {

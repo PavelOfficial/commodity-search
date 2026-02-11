@@ -1,0 +1,25 @@
+.modal-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+
+.modal-content {
+    min-width: 350px;
+}
+
+.form-input {
+    height: 40px;
+    padding: 0px 10px;
+    font-size: 18px;
+    background: var(--white);
+    box-sizing: border-box;
+    margin-top: 6px;
+    border-radius: 6px;
+    border: 1px solid var(--light-grey);
+    width: 100%;
+}
+
+.form-controls {
+    margin-top: 16px;    
+}

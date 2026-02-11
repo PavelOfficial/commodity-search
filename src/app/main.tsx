@@ -6,6 +6,8 @@ import { enableMapSet } from 'immer';
 import './index.scss'
 import { AppRoutes } from "./routes";
 
+import 'react-responsive-modal/styles.css';
+
 // init
 enableMapSet();
 
