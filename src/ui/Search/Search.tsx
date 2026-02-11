@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useShallow } from 'zustand/shallow'
 import { debounce } from 'lodash'
 
@@ -69,6 +69,24 @@ export const SearchBase = () => {
 
     getCommodityListByQueryDebounced();
   };
+
+  const [isLoadingDelayed, setIsLoadingDelayed] = useState(false);
+  useEffect(() => {
+    let timeoutDescriptor = null;
+    if (isLoading) {
+      setIsLoadingDelayed(isLoading);
+    } else {
+      timeoutDescriptor = setTimeout(() => {
+        setIsLoadingDelayed(isLoading);
+      }, 1500);
+    }
+
+    return () => {
+      if (timeoutDescriptor !== null) {
+        clearTimeout(timeoutDescriptor);
+      }
+    };
+  }, [isLoading]);
   
   return (
     <div className="search-backdrop">
@@ -91,7 +109,7 @@ export const SearchBase = () => {
         </div>
       </div>
       <div className="search-list-box">
-        {isLoading && 
+        {isLoadingDelayed && 
           <div className="progress-bar"></div>
         }
         <div className="content-container card-content">
