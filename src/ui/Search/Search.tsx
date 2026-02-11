@@ -29,12 +29,14 @@ export const SearchBase = () => {
     paginationTotal,
     paginationSkip,
     query,
+    isLoading,
   ] = useCommodityStore(useShallow((state) => [
     state.products,
     state.selectedProducts,
     state.total,
     state.skip,    
     state.query,
+    state.isLoading
   ]));
 
   const handleAllSelectedChange: React.ChangeEventHandler<HTMLInputElement, HTMLInputElement> = (event) => {
@@ -89,6 +91,9 @@ export const SearchBase = () => {
         </div>
       </div>
       <div className="search-list-box">
+        {isLoading && 
+          <div className="progress-bar"></div>
+        }
         <div className="content-container card-content">
           <div className="content-header">
             <div>

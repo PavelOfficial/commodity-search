@@ -8,10 +8,27 @@
 }
 
 .search-list-box {
+    position: relative;
     display: flex;
     justify-content: center;
     margin-top: 30px;
     background: var(--white);
+    overflow: hidden;
+}
+
+@keyframes progressBar {
+  0%   {transform: translate(-150%, 0);}
+  100% {transform: translate(300%, 0);}
+}
+
+.progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background-color: var(--primary-pale);
+    width: 40%;
+    animation: progressBar 1.5s linear 0s infinite normal;
 }
 
 .content-container {
