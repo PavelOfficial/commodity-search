@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Modal } from 'react-responsive-modal';
 import * as yup from "yup"
+import { toast } from 'react-toastify'
 
 import "./AddProductButton.scss"
 
@@ -9,6 +10,8 @@ import Cross from "../../Login/LoginForm/cross.svg?react"
 import PlusCircle from "./plus-circle.svg?react"
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+
+
 
 const schema = yup.object({
   title: yup.string().required("Введите наименование"),
@@ -44,7 +47,6 @@ export const AddProductButton = () => {
         setIsOpen(false);
     }
 
-
     return (
         <>
             <button type="button"
@@ -64,7 +66,10 @@ export const AddProductButton = () => {
                     </div>
                     <h2>Добавить товар</h2>
                     
-                    <form onSubmit={handleSubmit((state) => { console.log(state); closeModal(); })}>
+                    <form onSubmit={handleSubmit((state) => { 
+                        toast(`Товар "${state.title} - ${state.brand}" создан!`, { hideProgressBar: true });  
+                        closeModal(); 
+                    })}>
                         <div>
                             <label className="form-label" htmlFor="title-input">
                                 Наименование
