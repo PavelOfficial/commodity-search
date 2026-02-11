@@ -1,3 +1,4 @@
+import type { SortChangeOptions } from './storeTypes';
 import { create, type StateCreator } from 'zustand';
 import type { AxiosResponse } from 'axios';
 
@@ -17,6 +18,8 @@ const commoditySlice: StateCreator<
   total: null,
   skip: null,
   limit: null,
+  sortBy: null,
+  order: null,
   query: "",
 
   isLoading: false,
@@ -60,6 +63,13 @@ const commoditySlice: StateCreator<
     });
   },
 
+  setSortOptions(options: SortChangeOptions) {
+    set({
+      sortBy: options.sortBy,
+      order: options.order,
+    });
+  },
+
   // Action to fetch data
   getCommodityList: async (options: CommodityListOptions = {}) => {
     set({ isLoading: true, error: null }); // Set loading to true and clear previous errors
@@ -68,9 +78,10 @@ const commoditySlice: StateCreator<
       const response = await axios.get<void, AxiosResponse<CommodityResponse>>(url, {
         headers: { 'Content-Type': 'application/json' },
         params: {
-          limit: options.limit,
-          skip: options.skip,
-          q: get().query,
+          ...options,
+          ...(get().query ? { q: get().query } : {}),
+          ...(get().sortBy ? { sortBy: get().sortBy } : {}),
+          ...(get().order ? { order: get().order } : {}),
         },
       });
 
@@ -106,3 +117,6 @@ export const setAllProductsSelected = (selected: boolean) =>
 
 export const setCommodityQuery = (query: string) =>
   useCommodityStore.getState().setCommodityQuery(query);
+
+export const setSortOptions = (options: SortChangeOptions) =>
+  useCommodityStore.getState().setSortOptions(options);

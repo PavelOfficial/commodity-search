@@ -5,14 +5,16 @@ import { debounce } from 'lodash'
 import SearchIcon from "./search.svg?react"
 import "./Search.scss"
 
-import { getCommodityList, setSelectedProduct, setAllProductsSelected, useCommodityStore, setCommodityQuery } from '../../model/commodity'
+import { getCommodityList, setSelectedProduct, setAllProductsSelected, useCommodityStore, setCommodityQuery, setSortOptions } from '../../model/commodity'
 import { authGuard } from '../authGuard'
 import PlusCircle from "./plus-circle.svg?react"
 import ArrowsClockwise from "./arrows-clockwise.svg?react"
 
-import { Checkbox } from '../../lib/ui-kit/Checkbox'
+import { Checkbox } from '../../lib/ui-kit/Checkbox/Checkbox'
 import { ProductTableLine } from './ProductTableLine/ProductTableLine'
 import { Pagination } from './Pagination/Pagination'
+import type { SortChangeOptions } from '../../model/storeTypes'
+import { SortHeader } from '../../lib/ui-kit/SortHeader/SortHeader'
 
 const PAGINATION_LIMIT = 30;
 
@@ -30,13 +32,17 @@ export const SearchBase = () => {
     paginationSkip,
     query,
     isLoading,
+    sortBy,
+    order,
   ] = useCommodityStore(useShallow((state) => [
     state.products,
     state.selectedProducts,
     state.total,
     state.skip,    
     state.query,
-    state.isLoading
+    state.isLoading,
+    state.sortBy,
+    state.order,
   ]));
 
   const handleAllSelectedChange: React.ChangeEventHandler<HTMLInputElement, HTMLInputElement> = (event) => {
@@ -87,6 +93,15 @@ export const SearchBase = () => {
       }
     };
   }, [isLoading]);
+
+  const handleSortChange = (options: SortChangeOptions) => {
+    setSortOptions(options);
+
+    getCommodityList({
+      skip: 0,
+      limit: PAGINATION_LIMIT,
+    });
+  };
   
   return (
     <div className="search-backdrop">
@@ -136,11 +151,56 @@ export const SearchBase = () => {
                   onChange={handleAllSelectedChange} 
                 />
               </div>
-              <div>Наименование</div>
-              <div className="center-text">Вендор</div>
-              <div className="center-text">Артикул</div>
-              <div className="center-text">Оценка</div>
-              <div className="center-text">Цена, ₽</div>
+              <div>
+                <SortHeader
+                  order={order}
+                  sortBy={sortBy}
+                  onSortChange={handleSortChange}
+                  name="title"
+                >
+                  Наименование
+                </SortHeader>
+              </div>
+              <div className="center-text">
+                <SortHeader
+                  order={order}
+                  sortBy={sortBy}
+                  onSortChange={handleSortChange}
+                  name="brand"
+                >
+                  Вендор
+                </SortHeader>
+              </div>
+              <div className="center-text">
+                <SortHeader
+                  order={order}
+                  sortBy={sortBy}
+                  onSortChange={handleSortChange}
+                  name="sku"
+                >
+                  Артикул
+                </SortHeader>
+              </div>
+              <div className="center-text">
+                <SortHeader
+                  order={order}
+                  sortBy={sortBy}
+                  onSortChange={handleSortChange}
+                  name="rating"
+                >
+                  Оценка
+                </SortHeader>
+              </div>
+              <div className="center-text">
+                <SortHeader
+                  order={order}
+                  sortBy={sortBy}
+                  onSortChange={handleSortChange}
+                  name="price"
+                >
+                  Цена, ₽
+                </SortHeader>
+              </div>
               <div></div>
             </div>
             {products.map((product) => {

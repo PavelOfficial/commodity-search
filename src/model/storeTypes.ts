@@ -94,6 +94,8 @@ export type CommodityState = {
   isLoading: boolean,
   error: null | string,
   query: string
+  sortBy: null | string,
+  order: null | "asc" | "desc"
 };
 
 export interface CommodityListOptions {
@@ -101,9 +103,15 @@ export interface CommodityListOptions {
   limit?: number
 }
 
+export interface SortChangeOptions {
+  order: "asc" | "desc"
+  sortBy: string
+}
+
 export type CommodityActions = {
   getCommodityList: (options?: CommodityListOptions | Record<string, unknown>) => void
   setSelectedProduct: (id: number, selected: boolean) => void
   setAllProductsSelected: (selected: boolean) => void
   setCommodityQuery: (query: string) => void
+  setSortOptions: (options: SortChangeOptions) => void
 };
