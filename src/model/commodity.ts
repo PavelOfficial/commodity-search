@@ -2,7 +2,7 @@ import { create, type StateCreator } from 'zustand';
 import type { AxiosResponse } from 'axios';
 
 import { axios } from '../query';
-import type { CommodityActions, CommodityResponse, CommodityState } from './storeTypes';
+import type { CommodityActions, CommodityListOptions, CommodityResponse, CommodityState } from './storeTypes';
 
 import { immer } from "zustand/middleware/immer";
 import { produce } from 'immer';
@@ -54,11 +54,12 @@ const commoditySlice: StateCreator<
   },
 
   // Action to fetch data
-  getCommodityList: async () => {
+  getCommodityList: async (options: CommodityListOptions = {}) => {
     set({ isLoading: true, error: null }); // Set loading to true and clear previous errors
     try {
       const response = await axios.get<void, AxiosResponse<CommodityResponse>>('https://dummyjson.com/products', {
         headers: { 'Content-Type': 'application/json' },
+        params: options,
       });
 
       const data = response.data;
@@ -82,8 +83,8 @@ const commoditySlice: StateCreator<
 
 export const useCommodityStore = create<CommodityState & CommodityActions>()(immer(commoditySlice));
 
-export const getCommodityList = () =>
-  useCommodityStore.getState().getCommodityList();
+export const getCommodityList = (options?: CommodityListOptions) =>
+  useCommodityStore.getState().getCommodityList(options);
 
 export const setSelectedProduct = (id: number, selected: boolean) =>
   useCommodityStore.getState().setSelectedProduct(id, selected);

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useShallow } from 'zustand/shallow'
 
 import SearchIcon from "./search.svg?react"
@@ -11,18 +11,24 @@ import ArrowsClockwise from "./arrows-clockwise.svg?react"
 
 import { Checkbox } from '../../lib/ui-kit/Checkbox'
 import { ProductTableLine } from './ProductTableLine/ProductTableLine'
+import { Pagination } from './Pagination/Pagination'
+
+const PAGINATION_LIMIT = 30;
 
 export const SearchBase = () => {
   useEffect(() => {
-    getCommodityList()
+    // ?limit=10&skip=10
+    getCommodityList({
+      limit: PAGINATION_LIMIT,
+    });
   }, []);
 
   const [
     products, 
     selectedProducts,
-    total,
-    skip,
-    limit,
+    paginationTotal,
+    paginationSkip,
+    paginationLimit,
   ] = useCommodityStore(useShallow((state) => [
     state.products,
     state.selectedProducts,
@@ -30,10 +36,18 @@ export const SearchBase = () => {
     state.skip,
     state.limit,
   ]));
+
   const handleAllSelectedChange: React.ChangeEventHandler<HTMLInputElement, HTMLInputElement> = (event) => {
     const selected = event.target.checked;
 
     setAllProductsSelected(selected);
+  };
+
+  const handleSkipChange = (skip: number) => {
+    getCommodityList({
+      skip,
+      limit: PAGINATION_LIMIT,
+    })
   };
   
   return (
@@ -98,20 +112,21 @@ export const SearchBase = () => {
             })}
             <div className="commodity-table__footer">
               <div className="commodity-table__total-caption">
-                {total !== null && skip !== null && limit !== null &&
+                {paginationTotal !== null && paginationSkip !== null  &&
                   <>
                     Показано 
-                    <span className="important-caption">{skip + 1}-{skip + limit}</span> из 
-                    <span className="important-caption">{total}</span>
+                    <span className="important-caption"> {paginationSkip + 1}-{Math.min(paginationSkip + PAGINATION_LIMIT, paginationTotal)} </span> из 
+                    <span className="important-caption"> {paginationTotal}</span>
                   </>
                 }
               </div>
               <div className="commodity-table__pagination">
-                {total !== null && skip !== null && limit !== null &&
+                {paginationTotal !== null && paginationSkip !== null &&
                   <Pagination 
-                    total={total}
-                    skip={skip}
-                    limit={limit}
+                    total={paginationTotal}
+                    skip={paginationSkip}
+                    limit={PAGINATION_LIMIT}
+                    onSkipChange={handleSkipChange}
                   />                   
                 }
               </div>

@@ -95,8 +95,13 @@ export type CommodityState = {
   error: null | string,
 };
 
+export interface CommodityListOptions {
+  skip?: number
+  limit?: number
+}
+
 export type CommodityActions = {
-  getCommodityList: () => void
+  getCommodityList: (options?: CommodityListOptions | Record<string, unknown>) => void
   setSelectedProduct: (id: number, selected: boolean) => void
   setAllProductsSelected: (selected: boolean) => void
 };

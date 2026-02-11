@@ -10,7 +10,7 @@ interface Props {
     total: number, 
     skip: number,
     limit: number,
-    onSkipChange: (skip: number) => void
+    onSkipChange: (skip: number, limit: number) => void
 }
 
 export const Pagination = ({ total, skip, limit, onSkipChange }: Props) => {
@@ -20,7 +20,7 @@ export const Pagination = ({ total, skip, limit, onSkipChange }: Props) => {
     const selectedPage = Math.floor(skip / limit) + 1; 
     const firstRenderPage = selectedPage <= Math.ceil(paginationLength/2) ? 1 : 
         (
-            selectedPage >= totalPageCount - Math.ceil(paginationLength/2) ? 
+            selectedPage > totalPageCount - Math.ceil(paginationLength/2) ? 
                 totalPageCount - paginationLength + 1 : 
                 selectedPage - Math.ceil(paginationLength/2) + 1
         );
@@ -28,19 +28,19 @@ export const Pagination = ({ total, skip, limit, onSkipChange }: Props) => {
     const handlePrevPage = () => {
         const nextSelectedPage = selectedPage - 1;
         if (nextSelectedPage >= 1) {
-            onSkipChange((nextSelectedPage - 1) * limit);
+            onSkipChange((nextSelectedPage - 1) * limit, limit);
         }
     };
 
     const handleNextPage = () => {
         const nextSelectedPage = selectedPage + 1;
         if (nextSelectedPage <= totalPageCount) {
-            onSkipChange((nextSelectedPage - 1) * limit);
+            onSkipChange((nextSelectedPage - 1) * limit, limit);
         }
     };
 
     const handleSelectPage = (pageIndex:number) => {
-        onSkipChange((pageIndex - 1) * limit);
+        onSkipChange((pageIndex - 1) * limit, limit);
     };
 
     return (
