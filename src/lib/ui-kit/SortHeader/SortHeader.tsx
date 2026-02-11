@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react';
-import type { SortChangeOptions } from '../../../model/storeTypes';
+
+import type { SortChangeOptions } from '../../../model/storeTypes'
+import "./SortHeader.scss"
 
 interface SortHeaderProps {
     order: "asc" | "desc" | null
@@ -43,8 +45,8 @@ export const SortHeader = ({
     };
 
     return (
-        <button type="button" onClick={handleClick}>
-            {children}
+        <button type="button" className='sort-header' onClick={handleClick}>
+            {children}{" "}
             {sortBy === name && order === "asc" && "↑"}
             {sortBy === name && order === "desc" && "↓"}            
         </button>

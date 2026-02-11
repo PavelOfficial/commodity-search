@@ -6,11 +6,12 @@ import { axios } from '../query';
 import type { CommodityActions, CommodityListOptions, CommodityResponse, CommodityState } from './storeTypes';
 
 import { immer } from "zustand/middleware/immer";
+import { persist } from 'zustand/middleware';
 import { produce } from 'immer';
 
 const commoditySlice: StateCreator<
   CommodityState & CommodityActions,
-  [["zustand/immer", unknown]]
+  [["zustand/persist", unknown],["zustand/immer", unknown]]
 > = (set, get) => ({
   // State
   selectedProducts: new Set<number>(),
@@ -104,7 +105,15 @@ const commoditySlice: StateCreator<
   },
 })
 
-export const useCommodityStore = create<CommodityState & CommodityActions>()(immer(commoditySlice));
+export const useCommodityStore = create<CommodityState & CommodityActions>()(persist(
+  immer(commoditySlice), {
+    name: "commodityStore",
+    partialize: (state) => ({ 
+      sortBy: state.sortBy,
+      order: state.order,
+    })
+  })
+);
 
 export const getCommodityList = (options?: CommodityListOptions) =>
   useCommodityStore.getState().getCommodityList(options);

@@ -58,7 +58,7 @@ const authSlice:StateCreator<
 
 export const useAuthStore = create<AuthState & AuthActions>()(
   persist((...args) => ({ ...authSlice(...args) }), {
-    name: "counterStore",
+    name: "authStore",
     partialize: (state) => ({ 
       accessToken: state.accessToken,
       refreshToken: state.refreshToken,
