@@ -45,8 +45,6 @@ export const ProductTableLine = ({ product, selected, onSelect }: Props) => {
         onSelect(product.id, selected);
     };
 
-    console.log("product: ", product);
-
     return (
         <div className={classnames({
             "commodity-table-line commodity-table-line__table-row": true,

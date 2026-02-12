@@ -44,7 +44,6 @@ export const LoginForm = () => {
   return (
     <form onSubmit={handleSubmit(async (data) => {
       await authUser(data);
-      // console.log(data) 
     })} className="login-form">
       <label className="form-label" htmlFor="user-name">Логин</label>
       <EnhancedInput
