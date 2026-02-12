@@ -1,7 +1,8 @@
 import "./Login.scss"
 import LoginSign from "./login-sign.svg?react"
 import { LoginForm } from "./LoginForm/LoginForm";
-import { authGuard } from '../authGuard';
+import { authGuard } from '@/ui/authGuard';
+import { HrLine } from '@/lib/ui-kit/HrLine/HrLine';
 
 export const LoginBase = () => {
   return (
@@ -18,12 +19,8 @@ export const LoginBase = () => {
           <h1 className="welcome-header">Добро пожаловать!</h1>
           <div className="auth__call-to-action">Пожалуйста, авторизуйтесь</div>
           <LoginForm />
-          <div className="hr-line">
-            <div className="hr-line__before-hr"></div>
-            <div className="hr-line__text">или</div>
-            <div className="hr-line__after-hr"></div>
-          </div>
-          <div className="additional-actions">Нет аккаунта? <a href="#">Создать</a></div>
+          <HrLine>или</HrLine>          
+          <div className="auth__additional-actions">Нет аккаунта? <a href="#">Создать</a></div>
         </div>
       </div>
     </div>

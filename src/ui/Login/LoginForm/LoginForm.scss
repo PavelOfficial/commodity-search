@@ -5,64 +5,6 @@
   font-size: 18px;
 }
 
-.enhanced-input {
-  position: relative;
-  background: var(--white);
-  box-sizing: border-box;
-  height: 55px;
-  margin-top: 6px;
-  border-radius: 12px;
-  border: 1px solid var(--light-grey);
-}
-
-.enhanced-input__controls {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr 54px;
-  height: 53px;
-  z-index: 1;
-}
-
-.enhanced-input input {
-  border: none;
-  background: none !important;
-  background-color: transparent !important;
-  font-size: 18px;
-  padding-left: 54px;
-}
-
-.enhanced-input input:auto-fill {
-  background: none !important;
-  background-color: transparent !important;
- }
-
-.enhanced-input__icon {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 54px;
-  height: 54px;
-  z-index: 2;
-}
-
-.enhanced-input__action {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border: none;
-  padding: 0;
-  margin: 0;
-  background: none;
-}
-
-.enhanced-input__action:focus {
-  // outline: 1px solid var(--light-primary);
-}
-
 .login-form {
   margin-top: 32px;
 }

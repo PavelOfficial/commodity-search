@@ -5,16 +5,16 @@ import { debounce } from 'lodash'
 import SearchIcon from "./search.svg?react"
 import "./Search.scss"
 
-import { getCommodityList, setSelectedProduct, setAllProductsSelected, useCommodityStore, setCommodityQuery, setSortOptions } from '../../model/commodity'
-import { authGuard } from '../authGuard'
+import { getCommodityList, setSelectedProduct, setAllProductsSelected, useCommodityStore, setCommodityQuery, setSortOptions } from '@/model/commodity'
+import { authGuard } from '@/ui/authGuard'
 
 import ArrowsClockwise from "./arrows-clockwise.svg?react"
 
-import { Checkbox } from '../../lib/ui-kit/Checkbox/Checkbox'
+import { Checkbox } from '@/lib/ui-kit/Checkbox/Checkbox'
 import { ProductTableLine } from './ProductTableLine/ProductTableLine'
 import { Pagination } from './Pagination/Pagination'
-import type { SortChangeOptions } from '../../model/storeTypes'
-import { SortHeader } from '../../lib/ui-kit/SortHeader/SortHeader'
+import type { SortChangeOptions } from '@/model/storeTypes'
+import { SortHeader } from '@/lib/ui-kit/SortHeader/SortHeader'
 import { AddProductButton } from './AddProductButton/AddProductButton'
 
 const PAGINATION_LIMIT = 30;
