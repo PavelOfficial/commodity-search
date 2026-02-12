@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-import type { SortChangeOptions } from '../../../model/storeTypes'
+import type { SortChangeOptions } from '@/model/storeTypes'
 import "./SortHeader.scss"
 
 interface SortHeaderProps {

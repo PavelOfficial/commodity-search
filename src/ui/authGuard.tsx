@@ -3,7 +3,7 @@ import { useMatch, Navigate } from "react-router";
 
 import { useShallow } from "zustand/react/shallow";
 
-import { authLogout, useAuthStore } from "../model/auth";
+import { authLogout, useAuthStore } from "@/model/auth";
 
 export const authGuard = (ChildElement: FunctionComponent) => {
     return () => {

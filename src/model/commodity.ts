@@ -2,7 +2,7 @@ import type { SortChangeOptions } from './storeTypes';
 import { create, type StateCreator } from 'zustand';
 import type { AxiosResponse } from 'axios';
 
-import { axios } from '../query';
+import { axios } from '@/query';
 import type { CommodityActions, CommodityListOptions, CommodityResponse, CommodityState } from './storeTypes';
 
 import { immer } from "zustand/middleware/immer";

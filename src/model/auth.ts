@@ -1,6 +1,6 @@
 import { create, type StateCreator } from 'zustand';
 
-import { axios } from '../query';
+import { axios } from '@/query';
 import type { AuthActions, AuthParams, AuthResponse, AuthState } from './storeTypes';
 import type { AxiosResponse } from 'axios';
 import { persist } from 'zustand/middleware';

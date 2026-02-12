@@ -5,7 +5,7 @@ import { toast } from 'react-toastify'
 
 import "./AddProductButton.scss"
 
-import Cross from "../../Login/LoginForm/cross.svg?react"
+import Cross from "@/ui/Login/LoginForm/cross.svg?react"
 
 import PlusCircle from "./plus-circle.svg?react"
 import { useForm } from 'react-hook-form';

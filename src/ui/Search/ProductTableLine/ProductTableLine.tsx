@@ -3,8 +3,8 @@ import classnames from "classnames"
 import PlusIcon from "./plus-ico.svg?react"
 import MoreIcon from "./more-icon.svg?react"
 
-import { Checkbox } from '../../../lib/ui-kit/Checkbox/Checkbox';
-import type { Product } from '../../../model/storeTypes';
+import { Checkbox } from '@/lib/ui-kit/Checkbox/Checkbox';
+import type { Product } from '@/model/storeTypes';
 
 import "./ProductTableLine.scss"
 

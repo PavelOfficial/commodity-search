@@ -11,7 +11,7 @@ import UserIcon from "./user-icon.svg?react"
 import LockIcon from "./lock-icon.svg?react"
 import EyeInvisibleIcon from "./eye-invisible-icon.svg?react"
 import EyeVisibleIcon from "./eye-visible-icon.svg?react"
-import { authUser, useAuthStore } from '../../../model/auth'
+import { authUser, useAuthStore } from '@/model/auth'
 
 const useInputRef = (registerUserNameProps: UseFormRegisterReturn<string>) => {
   const userInputRef = useRef<HTMLInputElement | null>(null);
