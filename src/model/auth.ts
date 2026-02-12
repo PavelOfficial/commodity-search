@@ -27,8 +27,6 @@ const authSlice:StateCreator<
 
   // Action to fetch data
   authUser: async (params: AuthParams) => {
-    console.log(params);
-
     set({ isLoading: true, error: null, rememberMe: params.rememberMe }); // Set loading to true and clear previous errors
 
     try {
