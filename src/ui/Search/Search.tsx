@@ -7,6 +7,7 @@ import "./Search.scss"
 
 import { getCommodityList, setSelectedProduct, setAllProductsSelected, useCommodityStore, setCommodityQuery, setSortOptions } from '@/model/commodity'
 import { authGuard } from '@/ui/authGuard'
+import { motion } from 'framer-motion';
 
 import ArrowsClockwise from "./arrows-clockwise.svg?react"
 
@@ -18,6 +19,33 @@ import { SortHeader } from '@/lib/ui-kit/SortHeader/SortHeader'
 import { AddProductButton } from './AddProductButton/AddProductButton'
 
 const PAGINATION_LIMIT = 30;
+
+const progressVariants = {
+  visible: { opacity: 1 },
+  hidden: { opacity: 0 }
+};
+
+const useDelayedIsLoading = (isLoading: boolean) => {
+  const [isLoadingDelayed, setIsLoadingDelayed] = useState(false);
+  useEffect(() => {
+    let timeoutDescriptor = null;
+    if (isLoading) {
+      setIsLoadingDelayed(isLoading);
+    } else {
+      timeoutDescriptor = setTimeout(() => {
+        setIsLoadingDelayed(isLoading);
+      }, 1500);
+    }
+
+    return () => {
+      if (timeoutDescriptor !== null) {
+        clearTimeout(timeoutDescriptor);
+      }
+    };
+  }, [isLoading]);
+
+  return isLoadingDelayed
+}
 
 export const SearchBase = () => {
   useEffect(() => {
@@ -77,24 +105,7 @@ export const SearchBase = () => {
     getCommodityListByQueryDebounced();
   };
 
-  const [isLoadingDelayed, setIsLoadingDelayed] = useState(false);
-  useEffect(() => {
-    let timeoutDescriptor = null;
-    if (isLoading) {
-      setIsLoadingDelayed(isLoading);
-    } else {
-      timeoutDescriptor = setTimeout(() => {
-        setIsLoadingDelayed(isLoading);
-      }, 1500);
-    }
-
-    return () => {
-      if (timeoutDescriptor !== null) {
-        clearTimeout(timeoutDescriptor);
-      }
-    };
-  }, [isLoading]);
-
+  const isLoadingDelayed = useDelayedIsLoading(isLoading);  
   const handleSortChange = (options: SortChangeOptions) => {
     setSortOptions(options);
 
@@ -126,9 +137,11 @@ export const SearchBase = () => {
           </div>
         </div>
         <div className="search-list-box">
-          {isLoadingDelayed && 
-            <div className="progress-bar"></div>
-          }
+          <motion.div animate={isLoadingDelayed ? 'visible' : 'hidden'} 
+                      variants={progressVariants} 
+                      initial='hidden' 
+                      className="progress-bar">
+          </motion.div>
           <div className="content-container card-content">
             <div className="content-header">
               <div>
