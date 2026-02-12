@@ -1,3 +1,12 @@
+## Запуск проекта
+Запустите "npm i" для установки зависимостей.
+Запустите "npm run dev" команду 
+и перейдите в браузере по предложенной ссылке.
+
+## Данные для авторизации
+Имя пользователя: 'emilys'
+Пароль пользователя: 'emilyspass'
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

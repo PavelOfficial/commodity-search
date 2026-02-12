@@ -35,8 +35,6 @@ const authSlice:StateCreator<
         password: params.password,
       }, {
         headers: { 'Content-Type': 'application/json' },
-        // withCredentials: true,
-        // credentials: 'include'
       });
 
       set({ 
@@ -44,12 +42,12 @@ const authSlice:StateCreator<
         isAuthorizated: true, 
         accessToken: response.data.accessToken, 
         refreshToken: response.data.refreshToken,
-      }); // On success, store data and set loading to false
+      });
     } catch (err) {
       set({ 
         error: err?.response?.data?.message || err?.message,
         isLoading: false,
-      }); // On failure, store error and set loading to false
+      });
     }
   },
 })
