@@ -1,3 +1,5 @@
+@import "./styles/form";
+
 @font-face {
   font-family: 'Inter';
   src: url('/assets/fonts/Inter-VariableFont_opsz,wght.ttf');
@@ -27,8 +29,10 @@
   --white: #FFFFFF;
   --grey: #C9C9C9;
   --primary: #242EDB;
+  --primary-dark: #2027a4;
   --primary-pale: #3C538E;
   --primary-axtra-pale: #797FEA;
+  --primary-axtra-pale-2: #6f74d9;
   --light-primary: #367AFF;
   --darken-grey: #6C6C6C;
   --dark-grey: #9C9C9C;

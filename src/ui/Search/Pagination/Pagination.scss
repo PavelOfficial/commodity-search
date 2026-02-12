@@ -19,3 +19,8 @@
     color: var(--white);
     background: var(--primary-axtra-pale);
 }
+
+.pagination-slide-button_selected:hover,
+.pagination-slide-button_selected:focus {
+    background: var(--primary-axtra-pale-2);
+}
