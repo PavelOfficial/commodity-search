@@ -12,7 +12,7 @@ import LockIcon from "./lock-icon.svg?react"
 import EyeInvisibleIcon from "./eye-invisible-icon.svg?react"
 import EyeVisibleIcon from "./eye-visible-icon.svg?react"
 import { authUser, useAuthStore } from '@/model/auth'
-import { EnhancedInput } from '@/lib/ui-kit/EnhancedInput/EnhancedInput'
+import { EnhancedInput } from '@/components/EnhancedInput/EnhancedInput'
 
 // 1. Define the Yup validation schema
 const schema = yup.object({

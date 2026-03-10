@@ -1,10 +1,10 @@
 .search-backdrop {
     flex-grow: 1;
     display: flex;
-    flex-direction: column;    
+    flex-direction: column;
     justify-content: start;
 
-    background: var(--white-grey-2);
+    background: var(--white-grey);
 }
 
 .search-list-box {
@@ -50,7 +50,7 @@
     font-size: 16px;
     border: none;
     border-radius: 8px;
-    background: var(--white-grey-3);
+    background: var(--white-grey);
 }
 
 .card-input-label {
@@ -136,7 +136,7 @@ h2 {
 }
 
 .commodity-table-line_header {
-    color: var(--medium-grey-2);
+    color: var(--medium-grey);
     font-size: 18px;
     font-weight: bold;
 }
@@ -147,7 +147,7 @@ h2 {
 
 .commodity-table-line__table-row {
     position: relative;
-    border: 1px solid var(--light-grey-5);
+    border: 1px solid var(--light-grey);
     border-left: none;
     border-right: none;
     font-size: 16px;
@@ -175,11 +175,11 @@ h2 {
 }
 
 .commodity-table__total-caption {
-    color: var(--dark-grey-2);
+    color: var(--dark-grey);
 }
 
 .important-caption {
-    color: var(--dark-2);
+    color: var(--dark);
 }
 
 .commodity-table__pagination {

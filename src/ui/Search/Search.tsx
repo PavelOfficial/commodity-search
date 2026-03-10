@@ -11,11 +11,11 @@ import { motion } from 'framer-motion';
 
 import ArrowsClockwise from "./arrows-clockwise.svg?react"
 
-import { Checkbox } from '@/lib/ui-kit/Checkbox/Checkbox'
+import { Checkbox } from '@/components/Checkbox/Checkbox'
 import { ProductTableLine } from './ProductTableLine/ProductTableLine'
 import { Pagination } from './Pagination/Pagination'
 import type { SortChangeOptions } from '@/model/storeTypes'
-import { SortHeader } from '@/lib/ui-kit/SortHeader/SortHeader'
+import { SortHeader } from '@/components/SortHeader/SortHeader'
 import { AddProductButton } from './AddProductButton/AddProductButton'
 
 const PAGINATION_LIMIT = 30;

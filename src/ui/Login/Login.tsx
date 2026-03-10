@@ -2,7 +2,7 @@ import "./Login.scss"
 import LoginSign from "./login-sign.svg?react"
 import { LoginForm } from "./LoginForm/LoginForm";
 import { authGuard } from '@/ui/authGuard';
-import { HrLine } from '@/lib/ui-kit/HrLine/HrLine';
+import { HrLine } from '@/components/HrLine/HrLine';
 
 export const LoginBase = () => {
   return (
